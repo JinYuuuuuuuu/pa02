@@ -29,13 +29,15 @@ int main(int argc, char** argv){
         cerr << "Could not open file " << argv[1];
         exit(1);
     }
-  
+    
+    Movies movies;
     // Create an object of a STL data-structure to store all the movies
 
     string line, movieName;
     double movieRating;
     // Read each file and store the name and rating
     while (getline (movieFile, line) && parseLine(line, movieName, movieRating)){
+        movies.addMovie(movieName, movieRating);
             // Use std::string movieName and double movieRating
             // to construct your Movie objects
             // cout << movieName << " has rating " << movieRating << endl;
@@ -45,6 +47,7 @@ int main(int argc, char** argv){
     movieFile.close();
 
     if (argc == 2){
+        movies.printAllMovies();
             //print all the movies in ascending alphabetical order of movie names
             return 0;
     }
@@ -61,6 +64,10 @@ int main(int argc, char** argv){
         if (!line.empty()) {
             prefixes.push_back(line);
         }
+    }
+
+    for (const auto& prefix : prefixes) {
+        movies.findHighestRatedMovie(prefix);
     }
 
     //  For each prefix,

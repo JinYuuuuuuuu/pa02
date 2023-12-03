@@ -1,6 +1,7 @@
 // Spring'22
 // Instructor: Diba Mirza
 // Student name: 
+#include "movies.h"
 #include <iostream>
 #include <fstream>
 #include <string>

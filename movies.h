@@ -7,14 +7,16 @@
 #include <vector>
 #include <functional>
 
+using namespace std;
+
 class Movies {
 public:
-    void addMovie(const std::string& name, double rating);
+    void addMovie(const string& name, double rating);
     void printAllMovies() const;
     void findHighestRatedMovie(const std::string& prefix) const;
 
 private:
-    std::map<std::string, double> movieMap; // Map for storing movies
+    map<string, double> movieMap;
 };
 
-#endif // MOVIES_H
+#endif

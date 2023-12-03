@@ -71,6 +71,7 @@ int main(int argc, char** argv){
         movies.findHighestRatedMovie(prefix);
     }
 
+    /*
     //  For each prefix,
     //  Find all movies that have that prefix and store them in an appropriate data structure
     //  If no movie with that prefix exists print the following message
@@ -79,7 +80,8 @@ int main(int argc, char** argv){
     //  For each prefix,
     //  Print the highest rated movie with that prefix if it exists.
     cout << "Best movie with prefix " << "<replace with prefix>" << " is: " << "replace with movie name" << " with rating " << std::fixed << std::setprecision(1) << "replace with movie rating" << endl;
-
+    */
+    
     return 0;
 }
 

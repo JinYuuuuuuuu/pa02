@@ -37,7 +37,7 @@ pair<string, double> Movies::findAndPrintMoviesWithPrefix(const string& prefix) 
     while (!pq.empty()) {
         auto movie = pq.top();
         pq.pop();
-        cout << movie.second << ", " << fixed << movie.first << endl;
+        cout << movie.second << ", " << movie.first << endl;
     }
 
     cout << endl;

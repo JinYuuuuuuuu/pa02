@@ -1,7 +1,6 @@
 #include "movies.h"
 #include <iostream>
 #include <iomanip>
-#include <algorithm>
 
 using namespace std;
 
@@ -16,6 +15,9 @@ void Movies::printAllMovies() const {
 }
 
 pair<string, double> Movies::findAndPrintMoviesWithPrefix(const string& prefix) const {
+    using PairType = pair<double, string>;
+    priority_queue<PairType, vector<PairType>, MovieComparator> pq;
+
     auto lower = movieMap.lower_bound(prefix);
     string upperPrefix = prefix;
     ++upperPrefix[upperPrefix.length() - 1];
@@ -28,23 +30,21 @@ pair<string, double> Movies::findAndPrintMoviesWithPrefix(const string& prefix) 
 
     pair<string, double> highestRatedMovie = {"", -0.1};
 
-    // Use a vector to store movies for sorting
-    vector<pair<double, string>> moviesWithPrefix;
-
     for (auto it = lower; it != upper; ++it) {
+        pq.push(make_pair(it->second, it->first));
         if (it->second > highestRatedMovie.second) {
-            highestRatedMovie = make_pair(it->first, it->second);
+            highestRatedMovie = *it;
         }
-        moviesWithPrefix.push_back(make_pair(it->second, it->first));
     }
 
-    // Sorting the vector based on ratings (and then names if ratings are equal)
-    sort(moviesWithPrefix.begin(), moviesWithPrefix.end(), [](const pair<double, string>& a, const pair<double, string>& b) {
-        return a.first > b.first || (a.first == b.first && a.second < b.second);
-    });
+    if (pq.empty()) {
+        cout << "No movies found with prefix " << prefix << endl;
+        return highestRatedMovie;
+    }
 
-    // Print all movies with the prefix sorted by their ratings
-    for (const auto& movie : moviesWithPrefix) {
+    while (!pq.empty()) {
+        auto movie = pq.top();
+        pq.pop();
         cout << movie.second << ", " << movie.first << endl;
     }
 

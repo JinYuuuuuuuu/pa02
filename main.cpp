@@ -33,11 +33,14 @@ int main(int argc, char** argv){
     
     Movies movies;
     vector<pair<string, pair<string, double>>> highestRatedMovies;
+    // Create an object of a STL data-structure to store all the movies
 
     string line, movieName;
     double movieRating;
+    // Read each file and store the name and rating
     while (getline (movieFile, line) && parseLine(line, movieName, movieRating)){
         movies.addMovie(movieName, movieRating);
+
     }
 
     movieFile.close();

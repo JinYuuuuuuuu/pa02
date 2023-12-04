@@ -14,36 +14,46 @@ void Movies::printAllMovies() const {
     }
 }
 
-pair<string, double> Movies::findAndPrintMoviesWithPrefix(const string& prefix) const {
-    using PairType = pair<double, string>;
-    priority_queue<PairType, vector<PairType>, MovieComparator> pq;
+std::pair<std::string, double> Movies::findAndPrintMoviesWithPrefix(const std::string& prefix) const {
+    using PairType = std::pair<double, std::string>; // Define PairType here
+    std::priority_queue<PairType, std::vector<PairType>, MovieComparator> pq;
 
-    pair<string, double> highestRatedMovie = {"", -0.1};
+    if (movieMap.empty()) {
+        std::cout << "No movies found with prefix " << prefix << std::endl;
+        return {"", -0.1};
+    }
 
-    for (const auto& movie : movieMap) {
-        if (movie.first.find(prefix) == 0) {
-            pq.push(make_pair(movie.second, movie.first));
-            if (movie.second > highestRatedMovie.second) {
-                highestRatedMovie = movie;
-            }
-        }
-        else if(!pq.empty()){
-            break;
+    auto lower = movieMap.lower_bound(prefix);
+    std::string upperPrefix = prefix;
+    ++upperPrefix[upperPrefix.length() - 1]; // Increment the last character of the prefix
+    auto upper = movieMap.lower_bound(upperPrefix);
+
+    if (lower == movieMap.end()) {
+        std::cout << "No movies found with prefix " << prefix << std::endl;
+        return {"", -0.1};
+    }
+
+    std::pair<std::string, double> highestRatedMovie = {"", -0.1};
+
+    for (auto it = lower; it != upper; ++it) {
+        pq.push(make_pair(it->second, it->first));
+        if (it->second > highestRatedMovie.second) {
+            highestRatedMovie = *it;
         }
     }
 
     if (pq.empty()) {
-        cout << "No movies found with prefix " << prefix << endl;
+        std::cout << "No movies found with prefix " << prefix << std::endl;
         return highestRatedMovie;
     }
 
     while (!pq.empty()) {
         auto movie = pq.top();
         pq.pop();
-        cout << movie.second << ", " << movie.first << endl;
+        std::cout << movie.second << ", " << movie.first << std::endl;
     }
 
-    cout << endl;
+    std::cout << std::endl;
 
     return highestRatedMovie;
 }

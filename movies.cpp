@@ -18,7 +18,7 @@ pair<string, double> Movies::findAndPrintMoviesWithPrefix(const string& prefix) 
     using PairType = pair<double, string>;
     priority_queue<PairType, vector<PairType>, MovieComparator> pq;
 
-    pair<string, double> highestRatedMovie = {"", 0.0};
+    pair<string, double> highestRatedMovie = {"", -0.1};
 
     for (const auto& movie : movieMap) {
         if (movie.first.find(prefix) == 0) {

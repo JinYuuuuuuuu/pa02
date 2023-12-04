@@ -10,13 +10,21 @@
 using namespace std;
 
 class Movies {
-public:
-    void addMovie(const string& name, double rating);
-    void printAllMovies() const;
-    pair<string, double> findAndPrintMoviesWithPrefix(const std::string& prefix) const;
+    struct MovieComparator {
+        bool operator()(const pair<double, string>& a, const pair<double, string>& b) const {
+            if (a.first == b.first) {
+                return a.second > b.second;
+            }
+            return a.first < b.first;
+        }
+    };
+    public:
+        void addMovie(const string& name, double rating);
+        void printAllMovies() const;
+        pair<string, double> findAndPrintMoviesWithPrefix(const string& prefix) const;
 
-private:
-    map<string, double> movieMap;
+    private:
+        map<string, double> movieMap;
 };
 
 #endif

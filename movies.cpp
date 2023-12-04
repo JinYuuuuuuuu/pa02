@@ -15,10 +15,10 @@ void Movies::printAllMovies() const {
 }
 
 pair<string, double> Movies::findAndPrintMoviesWithPrefix(const string& prefix) const {
-    pair<string, double> highestRatedMovie = {"", 0.0};
-
     using PairType = pair<double, string>;
-    priority_queue<PairType, vector<PairType>, less<PairType>> pq;
+    priority_queue<PairType, vector<PairType>, MovieComparator> pq;
+
+    pair<string, double> highestRatedMovie = {"", 0.0};
 
     for (const auto& movie : movieMap) {
         if (movie.first.find(prefix) == 0) {
@@ -37,7 +37,7 @@ pair<string, double> Movies::findAndPrintMoviesWithPrefix(const string& prefix) 
     while (!pq.empty()) {
         auto movie = pq.top();
         pq.pop();
-        cout << movie.second << ", " << fixed << setprecision(1) << movie.first << endl;
+        cout << movie.second << ", " << fixed << movie.first << endl;
     }
 
     cout << endl;

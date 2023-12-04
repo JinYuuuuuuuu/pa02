@@ -14,48 +14,36 @@ void Movies::printAllMovies() const {
     }
 }
 
-#include <vector>
-#include <algorithm>
+pair<string, double> Movies::findAndPrintMoviesWithPrefix(const string& prefix) const {
+    using PairType = pair<double, string>;
+    priority_queue<PairType, vector<PairType>, MovieComparator> pq;
 
-std::pair<std::string, double> Movies::findAndPrintMoviesWithPrefix(const std::string& prefix) const {
-    std::vector<std::pair<double, std::string>> matchingMovies;
-    std::pair<std::string, double> highestRatedMovie = {"", -1};
+    pair<string, double> highestRatedMovie = {"", -0.1};
 
-    // Collect movies that match the prefix
     for (const auto& movie : movieMap) {
         if (movie.first.find(prefix) == 0) {
-            matchingMovies.emplace_back(movie.second, movie.first);
+            pq.push(make_pair(movie.second, movie.first));
             if (movie.second > highestRatedMovie.second) {
                 highestRatedMovie = movie;
             }
         }
-        else if (!matchingMovies.empty()){
+        else if(!pq.empty()){
             break;
         }
     }
 
-    // Check if no movies were found
-    if (matchingMovies.empty()) {
-        std::cout << "No movies found with prefix " << prefix << std::endl;
+    if (pq.empty()) {
+        cout << "No movies found with prefix " << prefix << endl;
         return highestRatedMovie;
     }
 
-    // Sort the vector in descending order of ratings, 
-    // and in case of a tie, sort alphabetically by movie names
-    std::sort(matchingMovies.begin(), matchingMovies.end(), 
-        [](const std::pair<double, std::string>& a, const std::pair<double, std::string>& b) {
-            if (a.first == b.first) {
-                return a.second < b.second; // Sort alphabetically for ties
-            }
-            return a.first > b.first; // Sort by descending ratings
-        });
-
-    // Print the sorted movies
-    for (const auto& movie : matchingMovies) {
-        std::cout << movie.second << ", " << movie.first << std::endl;
+    while (!pq.empty()) {
+        auto movie = pq.top();
+        pq.pop();
+        cout << movie.second << ", " << movie.first << endl;
     }
 
-    std::cout << std::endl;
+    cout << endl;
 
     return highestRatedMovie;
 }

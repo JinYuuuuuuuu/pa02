@@ -25,6 +25,8 @@ class Movies {
 
     private:
         map<string, double> movieMap;
+        mutable map<string, double>::const_iterator lastUpperBound;
+        mutable bool isLastUpperBoundInitialized = false;
 };
 
 #endif

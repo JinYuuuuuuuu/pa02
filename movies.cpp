@@ -18,15 +18,15 @@ pair<string, double> Movies::findAndPrintMoviesWithPrefix(const string& prefix) 
     using PairType = pair<double, string>;
     priority_queue<PairType, vector<PairType>, MovieComparator> pq;
 
-    auto lower = movieMap.lower_bound(prefix);
+    // Start from the last upper bound if initialized, else start from lower_bound
+    auto lower = isLastUpperBoundInitialized ? lastUpperBound : movieMap.lower_bound(prefix);
     string upperPrefix = prefix;
     ++upperPrefix[upperPrefix.length() - 1];
     auto upper = movieMap.lower_bound(upperPrefix);
 
-    if (lower == movieMap.end()) {
-        cout << "No movies found with prefix " << prefix << endl;
-        return {"", -0.1};
-    }
+    // Update last upper bound for the next call
+    lastUpperBound = upper;
+    isLastUpperBoundInitialized = true;
 
     pair<string, double> highestRatedMovie = {"", -0.1};
 

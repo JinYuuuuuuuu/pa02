@@ -80,8 +80,6 @@ int main(int argc, char** argv){
         if (!movie.first.empty()) {
             cout << "Best movie with prefix " << prefix << " is " << movie.first
                       << " with rating " << movie.second << endl;
-        } else {
-            cout << "No best movie found with prefix " << prefix << endl;
         }
     }
 

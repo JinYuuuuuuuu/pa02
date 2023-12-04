@@ -30,7 +30,7 @@ pair<string, double> Movies::findAndPrintMoviesWithPrefix(const string& prefix) 
     }
 
     if (pq.empty()) {
-        cout << "No movies found with prefix " << prefix << endl << endl;
+        cout << "No movies found with prefix " << prefix << endl;
         return highestRatedMovie;
     }
 

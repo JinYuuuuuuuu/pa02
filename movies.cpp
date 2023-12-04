@@ -23,7 +23,7 @@ pair<string, double> Movies::findAndPrintMoviesWithPrefix(const string& prefix) 
     for (const auto& movie : movieMap) {
         if (movie.first.find(prefix) == 0) {
             pq.push(make_pair(movie.second, movie.first));
-            if (movie.second >= highestRatedMovie.second) {
+            if (movie.second > highestRatedMovie.second) {
                 highestRatedMovie = movie;
             }
         }

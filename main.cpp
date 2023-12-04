@@ -64,8 +64,6 @@ int main(int argc, char** argv){
         }
     }
 
-    clock_t start = clock();
-
     for (const auto& prefix : prefixes) {
         auto highestRatedMovie = movies.findAndPrintMoviesWithPrefix(prefix);
         highestRatedMovies.emplace_back(prefix, highestRatedMovie);
@@ -81,13 +79,6 @@ int main(int argc, char** argv){
                       << " with rating " << movie.second << endl;
         }
     }
-
-    clock_t end = clock();
-
-    // Calculate and report duration
-    double duration = double(end - start) / CLOCKS_PER_SEC;
-    cout << "Time taken: " << duration << " seconds" << endl;
-
 
     return 0;
 }

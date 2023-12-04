@@ -32,7 +32,7 @@ int main(int argc, char** argv){
     }
     
     Movies movies;
-    std::vector<std::pair<std::string, std::pair<std::string, double>>> highestRatedMovies;
+    vector<pair<string, pair<string, double>>> highestRatedMovies;
     // Create an object of a STL data-structure to store all the movies
 
     string line, movieName;
@@ -80,10 +80,10 @@ int main(int argc, char** argv){
         const auto& prefix = item.first;
         const auto& movie = item.second;
         if (!movie.first.empty()) {
-            std::cout << "Best movie with prefix " << prefix << " is: " << movie.first
-                      << " with rating " << std::fixed << std::setprecision(1) << movie.second << std::endl;
+            cout << "Best movie with prefix " << prefix << " is " << movie.first
+                      << " with rating " << movie.second << endl;
         } else {
-            std::cout << "No best movie found with prefix " << prefix << std::endl;
+            cout << "No best movie found with prefix " << prefix << endl;
         }
     }
 

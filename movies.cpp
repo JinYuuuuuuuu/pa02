@@ -29,6 +29,9 @@ std::pair<std::string, double> Movies::findAndPrintMoviesWithPrefix(const std::s
                 highestRatedMovie = movie;
             }
         }
+        else if (!matchingMovies.empty()){
+            break;
+        }
     }
 
     // Check if no movies were found

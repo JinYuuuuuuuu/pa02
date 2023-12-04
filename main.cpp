@@ -32,6 +32,7 @@ int main(int argc, char** argv){
     }
     
     Movies movies;
+    std::vector<std::pair<std::string, std::pair<std::string, double>>> highestRatedMovies;
     // Create an object of a STL data-structure to store all the movies
 
     string line, movieName;
@@ -67,8 +68,23 @@ int main(int argc, char** argv){
         }
     }
 
+    ////
+
     for (const auto& prefix : prefixes) {
-        movies.findHighestRatedMovie(prefix);
+        auto highestRatedMovie = movies.findAndPrintMoviesWithPrefix(prefix);
+        highestRatedMovies.emplace_back(prefix, highestRatedMovie);
+    }
+
+    // Print out the summary of highest-rated movies for each prefix
+    for (const auto& item : highestRatedMovies) {
+        const auto& prefix = item.first;
+        const auto& movie = item.second;
+        if (!movie.first.empty()) {
+            std::cout << "Best movie with prefix " << prefix << " is: " << movie.first
+                      << " with rating " << std::fixed << std::setprecision(1) << movie.second << std::endl;
+        } else {
+            std::cout << "No best movie found with prefix " << prefix << std::endl;
+        }
     }
 
     /*
@@ -81,7 +97,7 @@ int main(int argc, char** argv){
     //  Print the highest rated movie with that prefix if it exists.
     cout << "Best movie with prefix " << "<replace with prefix>" << " is: " << "replace with movie name" << " with rating " << std::fixed << std::setprecision(1) << "replace with movie rating" << endl;
     */
-    
+
     return 0;
 }
 

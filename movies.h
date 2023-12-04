@@ -13,7 +13,7 @@ class Movies {
 public:
     void addMovie(const string& name, double rating);
     void printAllMovies() const;
-    void findHighestRatedMovie(const std::string& prefix) const;
+    pair<string, double> findAndPrintMoviesWithPrefix(const std::string& prefix) const;
 
 private:
     map<string, double> movieMap;

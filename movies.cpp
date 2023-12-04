@@ -14,22 +14,23 @@ void Movies::printAllMovies() const {
     }
 }
 
-void Movies::findHighestRatedMovie(const string& prefix) const {
-    using PairType = pair<double, string>;
-    priority_queue<PairType, vector<PairType>, less<PairType>> pq;
+pair<string, double> Movies::findAndPrintMoviesWithPrefix(const string& prefix) const {
+    pair<string, double> highestRatedMovie = {"", 0.0}; // Pair to hold the highest-rated movie
 
     for (const auto& movie : movieMap) {
         if (movie.first.find(prefix) == 0) { // Movie name starts with the prefix
-            pq.push(make_pair(movie.second, movie.first));
+            cout << movie.first << ", " << movie.second << endl;
+            if (movie.second > highestRatedMovie.second) {
+                highestRatedMovie = movie;
+            }
         }
     }
 
-    if (!pq.empty()) {
-        auto highestRated = pq.top();
-        cout << "Best movie with prefix " << prefix << " is: " << highestRated.second
-            << " with rating " << highestRated.first << endl;
-    } 
-    else {
-        cout << "No movies found with prefix " << prefix << endl;
+    if (highestRatedMovie.first.empty()) {
+        std::cout << "No movies found with prefix " << prefix << endl << endl;
     }
+
+    cout << endl;
+
+    return highestRatedMovie;
 }
